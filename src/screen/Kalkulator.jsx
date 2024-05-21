@@ -16,14 +16,14 @@ const Kalkulator = () => {
     } else if (value === 'C') {
       clearInput();
     } else {
-      setInput(input + value);
+      setInput((prevInput) => prevInput + value);
     }
   };
 
   const calculateResult = () => {
     try {
       const evalResult = eval(input).toString();
-      setHistory(input);
+      setHistory(input + ' = ' + evalResult);
       setResult(evalResult);
       setInput('');
     } catch (error) {
@@ -56,8 +56,8 @@ const Kalkulator = () => {
       <Text style={styles.title}>Kalkulator</Text>
       <View style={styles.display}>
         <Text style={styles.historyText}>{history}</Text>
-        <Text style={styles.resultText}>{result}</Text>
         <Text style={styles.inputText}>{input}</Text>
+        {result !== '' && <Text style={styles.resultText}>{result}</Text>}
       </View>
       <View style={styles.buttonContainer}>
         {['7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'].map((value) => (
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 30,
     textAlign: 'right',
+    color: 'black',
   },
   resultText: {
     fontSize: 40,
